@@ -1,24 +1,31 @@
 package Accounting;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import Base.DriverManager;
+import Project_Data.MaintenaceData;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Profitability {
 
     public static void main(String[] args) {
 
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://takhangithub.github.io/MavenXpress/");
-        driver.manage().window().maximize();
+        DriverManager.initWebDriver(MaintenaceData.data_Driver_Chrome);
+        DriverManager.navigateURL(MaintenaceData.marineExpress_URL);
 
-        WebElement vslAccounting = driver.findElement(By.cssSelector("div[data-section='accounting'] span"));
-        vslAccounting.click();
+        accountingMenu();
+        accountProfitabilityTab();
+        //DriverManager.quitDriver();
+    }
 
-        WebElement profitability = driver.findElement(By.cssSelector("div[data-tab='profitability']"));
-        profitability.click();
+    public static void accountingMenu(){
 
+        WebElement accountingMenu = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(vslAccountingLocators.Vsl_AccountingMenu));
+        accountingMenu.click();
+    }
+
+    public static void accountProfitabilityTab(){
+
+        WebElement accountProfitability = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(vslAccountingLocators.Vsl_profitability_Tab));
+        accountProfitability.click();
 
     }
 }

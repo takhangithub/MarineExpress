@@ -4,63 +4,61 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import Base.DriverManager;
+import Project_Data.fleetManagementData;
 
 public class SearchVessel {
-
-    private static String webDriver = "Chrome";
-    private static String vslName = "Indian Ocean";
-    private static String vslStatus = "Maintenance";
-    private static String vslType = "Tanker";
-    private static WebDriverWait wait;
-    private static WebDriver driver;
 
 
     public static void main(String [] args){
 
-        DriverManager.initDriver(webDriver);
-        DriverManager.navigateURL(VesselData.marineExpress_URL);
-        wait = DriverManager.getWait();
-        driver = DriverManager.getDriver();
+        DriverManager.initWebDriver(fleetManagementData.data_Driver_Chrome);
+        DriverManager.navigateURL(fleetManagementData.marineExpress_URL);
+
+        //Search Functionality
+        addedVslSearchbyName(fleetManagementData.data_Vessel_Name);
+
+        addedVslSearchbyStatus(fleetManagementData.data_Vessel_Status);
+        addedVslSearchByTypes(fleetManagementData.data_Vessel_Type);
+
+        //DriverManager.quitDriver();
+
+    }
+
+
+    private static void addedVslClickSearchButton(){
+        WebElement searchButton = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(SearchVesselLocator.addedVessel_Search_Button));
+        searchButton.click();
+    }
+
+    private static void addedVslSearchbyName(String vslName){
 
         AddVessel.openFleetManagementMenu();
-        addedVvslSearchbyName(vslName);
-        addedVslSearchbyStatus(vslStatus);
-        addedVslSearchByTypes(vslType);
-
-
-
-    }
-
-    private static void addedVslSearchButton(){
-        WebElement searchBtn = driver.findElement(SearchVesselLocator.addedVessel_Search_Button);
-        searchBtn.click();
-    }
-    private static void addedVvslSearchbyName (String vslName){
-
-        WebElement searchVslbyName = wait.until(ExpectedConditions.visibilityOfElementLocated(SearchVesselLocator.addedVessel_Search_byName));
+        WebElement searchVslbyName = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(SearchVesselLocator.addedVessel_Search_byName));
         searchVslbyName.sendKeys(vslName);
-        addedVslSearchButton();
+        addedVslClickSearchButton();
 
 }
 
     private static void addedVslSearchbyStatus(String status){
 
-        // WebElement srchByStatus = driver.findElement(AddVesselLocators.addedVessel_Search_byStatus);
-        WebElement srchByStatus = wait.until(ExpectedConditions.visibilityOfElementLocated(SearchVesselLocator.addedVessel_Search_byStatus));
+        AddVessel.openFleetManagementMenu();
+        WebElement srchByStatus = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(SearchVesselLocator.addedVessel_Search_byStatus));
         Select select = new Select(srchByStatus);
-        select.selectByValue(status);
-        addedVslSearchButton();
+        //select.selectByValue(status);
+        select.selectByIndex(1);
+        addedVslClickSearchButton();
     }
 
     private static void addedVslSearchByTypes(String type){
 
-        WebElement vslSearchbyType = wait.until(ExpectedConditions.visibilityOfElementLocated(SearchVesselLocator.addedVessel_Search_byType));
-        Select select = new Select(vslSearchbyType);
-        select.selectByValue(type);
-        addedVslSearchButton();
-
+        AddVessel.openFleetManagementMenu();
+        WebElement searchbyType = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(SearchVesselLocator.addedVessel_Search_byType));
+        Select select = new Select(searchbyType);
+        //select.selectByValue(type);
+        select.selectByIndex(1);
+        addedVslClickSearchButton();
 
     }
-
 
 }

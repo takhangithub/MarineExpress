@@ -1,24 +1,26 @@
 package Maintenance;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import Base.DriverManager;
+import Project_Data.MaintenaceData;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 
 public class inProgress {
+
     public static void main(String[] args){
 
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://takhangithub.github.io/MavenXpress/");
-        driver.manage().window().maximize();
+        DriverManager.initWebDriver(MaintenaceData.data_Driver_Chrome);
+        DriverManager.navigateURL(MaintenaceData.marineExpress_URL);
 
-        WebElement Maintenance = driver.findElement(By.cssSelector("div[data-section='maintenance'] span"));
-        Maintenance.click();
+        ScheduleMaintenace.clickMaintenaceLink();
+        vslInProgressForMntnce();
+        //DriverManager.quitDriver();
+    }
 
-        WebElement inProgress = driver.findElement(By.cssSelector("div[data-tab='in-progress']"));
-        inProgress.click();
-
-
+    public static void vslInProgressForMntnce(){
+        WebElement inProgressTab = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(SchedlMntcLocators.Vsl_InProgess_ForMaintenance));
+        inProgressTab.click();
     }
 }
 

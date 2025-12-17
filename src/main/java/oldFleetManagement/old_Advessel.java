@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-
+/*
 public class old_Advessel {
 
     // Page Object Locators
@@ -61,6 +61,7 @@ public class old_Advessel {
         WebElement YearBuild = driver.findElement(By.cssSelector("#year-built"));
         YearBuild.sendKeys(stryrBld);  */
 
+/*
         WebElement YearBuild = driver.findElement(Year_Build);
         YearBuild.sendKeys(data_Vessel_Year);
 
@@ -84,3 +85,4 @@ public class old_Advessel {
     }
 
 }
+*/

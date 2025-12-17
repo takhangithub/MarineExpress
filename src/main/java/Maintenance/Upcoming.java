@@ -1,25 +1,26 @@
 package Maintenance;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import Base.DriverManager;
+import Project_Data.MaintenaceData;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 
 public class Upcoming {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://takhangithub.github.io/MavenXpress/");
-        driver.manage().window().maximize();
+        DriverManager.initWebDriver(MaintenaceData.data_Driver_Chrome);
+        DriverManager.navigateURL(MaintenaceData.marineExpress_URL);
 
-        WebElement Maintenance = driver.findElement(By.cssSelector("div[data-section='maintenance'] span"));
-        Maintenance.click();
-
-        WebElement upcoming = driver.findElement(By.cssSelector("div[data-tab='upcoming']"));
-        upcoming.click();
-
-
+        ScheduleMaintenace.clickMaintenaceLink();
+        DriverManager.quitDriver();
 
     }
+public static void upcomingMaintenance(){
+
+        WebElement VslUpcomingMntncd = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(SchedlMntcLocators.Vsl_upComing_ForMaintenance));
+        VslUpcomingMntncd.click();
+
+}
 }

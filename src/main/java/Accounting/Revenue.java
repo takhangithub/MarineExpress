@@ -1,35 +1,32 @@
 package Accounting;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import Base.DriverManager;
+import Project_Data.MaintenaceData;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Revenue {
 
-
-
     public static void main(String[] args) {
 
+        DriverManager.initWebDriver(MaintenaceData.data_Driver_Chrome);
+        DriverManager.navigateURL(MaintenaceData.marineExpress_URL);
 
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://takhangithub.github.io/MavenXpress/");
-        driver.manage().window().maximize();
-
-        WebElement vslAccounting = driver.findElement(By.cssSelector("div[data-section='accounting'] span"));
-        vslAccounting.click();
-
-        WebElement Revenue = driver.findElement(By.cssSelector("div[data-tab='revenue']"));
-        Revenue.click();
-
-        WebElement ttlRevnue = driver.findElement(By.cssSelector("#total-revenue"));
-        String totalRev = ttlRevnue.getText();
-        System.out.println(totalRev);
-
-
-
-        }
-
-
+        accountingMenu();
+        accountRevenueTab();
+        //DriverManager.quitDriver();
     }
 
+    public static void accountingMenu(){
+
+        WebElement accountingMenu = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(vslAccountingLocators.Vsl_AccountingMenu));
+        accountingMenu.click();
+    }
+
+    public static void accountRevenueTab(){
+
+        WebElement accountRevenue = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(vslAccountingLocators.Vsl_Revenue_Tab));
+        accountRevenue.click();
+
+    }
+}

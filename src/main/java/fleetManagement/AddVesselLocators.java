@@ -15,12 +15,11 @@ public class AddVesselLocators {
     static final By Vessel_Capacity = By.cssSelector("#capacity");
     static final By Vessel_Flag = By.cssSelector("#flag");
     static final By Vessel_CurrentLocation = By.cssSelector("#current-location");
+    static final By Vessel_Status = By.cssSelector("#vessel-status");
     static final By Vessel_register_Button = By.cssSelector("form[id='vessel-form'] button[type='submit']");
     static final By Vessel_add_success_message =  By.cssSelector("#toast-message");
 
     static final By Vessel_search_byName = By.cssSelector("div[data-section='fleet'] span");
-
-
 
 
 }

@@ -1,63 +1,61 @@
 
 // Issue: Cannot Find the Vessel Name
 
-
 package Maintenance;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import Base.DriverManager;
+import Project_Data.MaintenaceData;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+
 
 public class ScheduleMaintenace {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://takhangithub.github.io/MavenXpress/");
-                driver.manage().window().maximize();
-
-        WebElement Maintenance = driver.findElement(By.cssSelector("div[data-section='maintenance'] span"));
-        Maintenance.click();
-
-        WebElement NewMaintenance = driver.findElement(By.cssSelector("#add-maintenance-btn"));
-        NewMaintenance.click();
-
-        WebElement selVsl = driver.findElement(By.cssSelector("#maintenance-vessel"));
-        Select selectVsl = new Select(selVsl);
-        //selectVsl.selectByValue("Mediterranean Voyager (Bulk Carrier)");
-        selectVsl.selectByIndex(1);
-
-        WebElement MntnType = driver.findElement(By.cssSelector("#maintenance-type"));
-        Select selMntnType = new Select(MntnType);
-        selMntnType.selectByValue("Hull Cleaning");
-
-        WebElement MntnDate = driver.findElement(By.cssSelector("#maintenance-date"));
-        MntnDate.sendKeys("09/25/2026");
-
-        WebElement Duration = driver.findElement(By.cssSelector("#maintenance-duration"));
-        Duration.sendKeys("30");
-
-        WebElement Cost = driver.findElement(By.cssSelector("#maintenance-cost"));
-        Cost.sendKeys("7800");
-
-        WebElement mntnCost = driver.findElement(By.cssSelector("#maintenance-description"));
-        mntnCost.sendKeys("Vessel Ready for Maintenance");
-
-        WebElement schdlMntButton = driver.findElement(By.cssSelector("form[id='maintenance-form'] button[type='submit']"));
-        schdlMntButton.click();
-
-
-
-
-
-
-
+        DriverManager.initWebDriver(MaintenaceData.data_Driver_Chrome);
+        DriverManager.navigateURL(MaintenaceData.marineExpress_URL);
+        clickMaintenaceLink();
+        scheduleNewMaintenace();
 
     }
 
+    public static void clickMaintenaceLink(){
 
+        WebElement VslMaintenaceMenu = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(SchedlMntcLocators.Vsl_Maintenance_Menu));
+        VslMaintenaceMenu.click();
+    }
 
+    public static void scheduleNewMaintenace(){
 
+        WebElement ScheduleNewMaintenance = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(SchedlMntcLocators.Vsl_NewMaintenance_Button));
+        ScheduleNewMaintenance.click();
+
+        WebElement MaintenanceVslName = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(SchedlMntcLocators.Vsl_Maintenance_SelectVsl));
+        Select select = new Select(MaintenanceVslName);
+        //select.selectByValue(MaintenaceData.Data_Maintenance_SelectVsl);
+        select.selectByIndex(1);
+
+        WebElement MaintenanceVslType = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(SchedlMntcLocators.Vsl_Maintenance_Type));
+        Select selectNew = new Select(MaintenanceVslType);
+        selectNew.selectByValue(MaintenaceData.Data_Maintenance_Type);
+
+        WebElement ScheduleMaintenanceDate = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(SchedlMntcLocators.Vsl_Maintenance_ScheduleDate));
+        ScheduleMaintenanceDate.sendKeys(MaintenaceData.Data_Maintenance_ScheduleDate);
+
+        WebElement EstimatedMaintenaceDuration = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(SchedlMntcLocators.Vsl_Maintenance_EstimatedDuration));
+        EstimatedMaintenaceDuration.sendKeys(MaintenaceData.Data_Maintenance_EstimatedDuration);
+
+        WebElement  EstimatedMaintenanceCost = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(SchedlMntcLocators.Vsl_Maintenance_EstimatedCost));
+        EstimatedMaintenanceCost.sendKeys(MaintenaceData.Data_Maintenance_EstimatedCost);
+
+        WebElement  MaintenanceDescrpton = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(SchedlMntcLocators.Vsl_Maintenance_Descrtiption));
+        MaintenanceDescrpton.sendKeys(MaintenaceData.Data_Maintenance_Desctiption);
+
+        WebElement SchdlMntnceButton = DriverManager.getWait().until(ExpectedConditions.visibilityOfElementLocated(SchedlMntcLocators.Vsl_ScheduleMaintenance_Button));
+        SchdlMntnceButton.click();
+
+        //DriverManager.quitDriver();
+
+    }
 }
